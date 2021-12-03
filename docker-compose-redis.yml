@@ -1,0 +1,21 @@
+services:
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes"]
+    restart: unless-stopped
+    volumes:
+      - /Users/neerajdubey/Volumes/redis-data:/data
+
+  redisinsight:
+    image: redislabs/redisinsight:latest
+    container_name: redisinsight
+    restart: unless-stopped
+    links:
+      - redis
+    ports:
+      - "8082:8001"
+    volumes:
+      - /Users/neerajdubey/Volumes/redisinsight:/db
