@@ -1,6 +1,6 @@
 # docker-compose-scripts
 
-### How to generate proto descriptor?  for [docker-compose-kafka-kafdrop.yaml](docker-compose-kafka-kafdrop.yml)
+### How to generate proto descriptor?  for [docker-compose-kafka-kafdrop.yaml](docker-compose_kafka_kafdrop.yml)
 
 
 ```sh
