@@ -1,0 +1,40 @@
+[user]
+	name = neeraj dubey
+	email = neeraj338@gmail.com
+[color]
+	ui = true
+[help]
+	autocorrect = 1
+[alias]
+	lga = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	addsh = "!sh -c 'if [[ ${0: -3} == ".sh" ]]; then git update-index --chmod=+x $0; git add $0; else echo "error: not a sh file !"; fi' "
+	commith = commit --reuse-message=HEAD
+	showhidden = ls-files -v | grep "^[[:lower]]"
+	gwap = !git diff -w --no-color | git apply --cached --ignore-whitespace && git checkout -- . && git reset && git add -p
+	hide = update-index --assume-unchanged
+	unhide = update-index --no-assume-unchanged
+[difftool "smerge"]
+    path = "/usr/local/bin/smerge"
+	cmd = smerge \"$LOCAL\" \"$REMOTE\"
+    trustExitCode = false
+	keepTemporaries = false
+[difftool]
+    prompt = false
+[diff]
+    tool = smerge
+[mergetool "smerge"]
+	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
+    trustExitCode = false
+	keepTemporaries = false
+[mergetool]
+    keepBackup = false
+[merge]
+    tool = smerge
+[pull]
+	rebase = false
+[remote "origin"]
+	prune = true
+	tagopt = --tags
+	pruneTags = true
+[push]
+	followTags = true

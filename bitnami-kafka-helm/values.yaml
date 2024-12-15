@@ -1,0 +1,49 @@
+controller:
+  replicaCount: 3
+  automountServiceAccountToken: true
+  persistence:
+    size: 512Mi
+  logPersistence:
+    size: 256Mi
+
+volumePermissions:
+  enabled: true 
+
+broker:
+  automountServiceAccountToken: true
+  persistence:
+    size: 512Mi
+  logPersistence:
+    size: 256Mi
+
+serviceAccount:
+  create: true
+
+rbac:
+  create: true
+
+externalAccess: 
+  enabled: true
+  autoDiscovery: 
+    enabled: true
+  controller: 
+    service: 
+      type: NodePort
+      nodePorts:
+        - 30092
+        - 30093
+        - 30094
+      ports: 
+        external: 9094
+    podSecurityContext:
+      enabled: true
+      fsGroup: 1001
+
+listeners:
+  client:
+    protocol: PLAINTEXT
+  controller:
+    protocol: PLAINTEXT
+
+topic: 
+  autoCreate: false

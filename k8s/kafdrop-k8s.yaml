@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafdrop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafdrop
+  template:
+    metadata:
+      labels:
+        app: kafdrop
+    spec:
+      containers:
+      - name: kafdrop
+        image: obsidiandynamics/kafdrop:3.28.0-SNAPSHOT
+        env:
+        - name: CMD_ARGS
+          value: "--message.format=PROTOBUF --protobufdesc.directory=/var/protobuf_desc"
+        - name: KAFKA_BROKERCONNECT
+          value: "bitnami-kafka.default.svc.cluster.local:9092"
+        resources:
+          limits:
+            memory: "440Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 9000
+
+--- 
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafdrop
+spec:
+  selector:
+    app: kafdrop
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 9000
+    targetPort: 9000
